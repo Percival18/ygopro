@@ -11,6 +11,7 @@ struct ServerInfo {
 	std::wstring roomaddress;
 	int duelport;
 	int roomlistport;
+	int servertype;
 };
 struct RoomInfo {
 	std::wstring name;

@@ -1629,6 +1629,7 @@ void Game::LoadServers() {
 				tmp_server.roomaddress = BufferIO::DecodeUTF8s(obj["roomaddress"].get<std::string>());
 				tmp_server.roomlistport = obj["roomlistport"].get<int>();
 				tmp_server.duelport = obj["duelport"].get<int>();
+				tmp_server.servertype = obj["servertype"].get<int>();
 				mainGame->serverChoice->addItem(tmp_server.name.c_str());
 				serversVector.push_back(std::move(tmp_server));
 			}

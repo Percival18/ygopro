@@ -134,7 +134,7 @@ int ServerLobby::GetRoomsThread() {
 	std::string retrieved_data;
 	curl_handle = curl_easy_init();
 	if(mainGame->chkShowActiveRooms->isChecked()) {
-		curl_easy_setopt(curl_handle, CURLOPT_URL, fmt::format("http://{}:{}/api/getrooms", BufferIO::EncodeUTF8s(serverInfo.roomaddress), serverInfo.roomlistport).c_str());
+		curl_easy_setopt(curl_handle, CURLOPT_URL, fmt::format("http://{}:{}/api/getrooms/all", BufferIO::EncodeUTF8s(serverInfo.roomaddress), serverInfo.roomlistport).c_str());
 	} else {
 		curl_easy_setopt(curl_handle, CURLOPT_URL, fmt::format("http://{}:{}/api/getrooms", BufferIO::EncodeUTF8s(serverInfo.roomaddress), serverInfo.roomlistport).c_str());
 	}
@@ -244,7 +244,8 @@ void ServerLobby::JoinServer(bool host) {
 				}
 			}
 			mainGame->dInfo.secret.pass = BufferIO::EncodeUTF8s(mainGame->ebRPName->getText());
-			if(!DuelClient::StartClient(serverinfo.first, serverinfo.second, room->id, false)) {
+			unsigned short port = server.servertype == 2 ? room->id : serverinfo.second;
+			if(!DuelClient::StartClient(serverinfo.first, port, room->id, false)) {
 				return;
 			}
 		}
